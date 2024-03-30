@@ -1,43 +1,45 @@
 package Arithmetic;
 
-public class Arithmetic {
-    private Number num1;
-    private Number num2;
+import java.util.InputMismatchException;
 
-    public Arithmetic(Number num1, Number num2) {
-        this.num1 = num1;
-        this.num2 = num2;
+public class Arithmetic<num extends Number> {
+    private num num1;
+    private num num2;
+
+    public Arithmetic(num num1, num num2) {
+        if(num1 instanceof Number && num2 instanceof Number) {
+            this.num1 = num1;
+            this.num2 = num2;
+        } else {
+            throw new InputMismatchException("Input is invalid.");
+        }
     }
 
-    public double add() {
+    public Number add() {
         return num1.doubleValue() + num2.doubleValue();
     }
 
-    public double subtract() {
+    public Number subtract() {
         return num1.doubleValue() - num2.doubleValue();
     }
 
-    public double multiply() {
+    public Number multiply() {
         return num1.doubleValue() * num2.doubleValue();
     }
 
-    public double divide() {
-        return num1.doubleValue() / num2.doubleValue();
+    public Number divide() {
+        if (num2.intValue() == 0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        } else {
+            return num1.doubleValue() / num2.doubleValue();
+        }
     }
 
     public Number getMin() {
-        if (num1.doubleValue() < num2.doubleValue()) {
-            return num1;
-        } else {
-            return num2;
-        }
+        return Math.min(num1.doubleValue(), num2.doubleValue());
     }
 
     public Number getMax() {
-        if (num1.doubleValue() > num2.doubleValue()) {
-            return num1;
-        } else {
-            return num2;
-        }
+        return Math.max(num1.doubleValue(), num2.doubleValue());
     }
 }
